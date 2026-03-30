@@ -1,0 +1,103 @@
+### Test Support Callback
+POST http://localhost:3000/api/support/callback
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "phone": "9876543210",
+  "message": "Testing from VS Code"
+}
+
+###
+
+### Test Consultation Booking
+POST http://localhost:3000/api/booking/consultation
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "9876543210",
+  "message": "Need consultation for diabetes management"
+}
+
+###
+
+### Test Add to Cart
+POST http://localhost:3000/api/cart/add
+Content-Type: application/json
+
+{
+  "id": "TEST001",
+  "name": "Complete Blood Count",
+  "price": 500,
+  "type": "test",
+  "sessionId": "session_123456"
+}
+
+###
+
+### Test Home Visit Booking
+POST http://localhost:3000/api/booking/home-visit
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "email": "jane@example.com",
+  "phone": "9876543210",
+  "address": "123 Main Street, Bangalore",
+  "pincode": "560001",
+  "date": "2024-01-20",
+  "time": "10:00 AM",
+  "tests": [],
+  "totalAmount": 500
+}
+
+###
+
+### Test Create Booking
+POST http://localhost:3000/api/bookings/create
+Content-Type: application/json
+
+{
+  "user": {
+    "name": "Alice Johnson",
+    "email": "alice@example.com",
+    "phone": "9876543210",
+    "age": 30,
+    "designation": "Software Engineer",
+    "patientId": "PAT001"
+  },
+  "items": [
+    {
+      "id": "TEST001",
+      "name": "Complete Blood Count",
+      "price": 450,
+      "originalPrice": 500,
+      "discount": 50,
+      "type": "test",
+      "category": "Blood Test",
+      "parameters": 25,
+      "reportTime": "24 Hours"
+    }
+  ],
+  "address": "456 Park Avenue, Bangalore",
+  "phone": "9876543210"
+}
+
+###
+
+### Get Tests
+GET http://localhost:3000/api/tests?limit=10&sortBy=price-low
+
+###
+
+### Get Packages
+GET http://localhost:3000/api/packages
+
+###
+
+### Search Tests
+GET http://localhost:3000/api/search?q=blood
+
+###

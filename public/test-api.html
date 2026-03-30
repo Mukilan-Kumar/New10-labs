@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Test Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .test-section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2563eb;
+      margin-top: 0;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .response {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f9fafb;
+      border-radius: 5px;
+      border-left: 4px solid #2563eb;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    .success {
+      border-left-color: #10b981;
+      background: #f0fdf4;
+    }
+    .error {
+      border-left-color: #ef4444;
+      background: #fef2f2;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 Newton's Lab - API Test Page</h1>
+
+  <!-- Test 1: Support Callback -->
+  <div class="test-section">
+    <h2>1. Test Support Callback</h2>
+    <label>Name:</label>
+    <input type="text" id="callback-name" value="Test User" />
+    
+    <label>Phone:</label>
+    <input type="text" id="callback-phone" value="9876543210" />
+    
+    <label>Message:</label>
+    <textarea id="callback-message" rows="3">Testing from browser</textarea>
+    
+    <button onclick="testCallback()">Test Callback API</button>
+    <div id="callback-response"></div>
+  </div>
+
+  <!-- Test 2: Consultation Booking -->
+  <div class="test-section">
+    <h2>2. Test Consultation Booking</h2>
+    <label>Name:</label>
+    <input type="text" id="consult-name" value="John Doe" />
+    
+    <label>Email:</label>
+    <input type="email" id="consult-email" value="john@example.com" />
+    
+    <label>Phone:</label>
+    <input type="text" id="consult-phone" value="9876543210" />
+    
+    <label>Message:</label>
+    <textarea id="consult-message" rows="3">Need consultation for diabetes management</textarea>
+    
+    <button onclick="testConsultation()">Test Consultation API</button>
+    <div id="consult-response"></div>
+  </div>
+
+  <!-- Test 3: Add to Cart -->
+  <div class="test-section">
+    <h2>3. Test Add to Cart</h2>
+    <button onclick="testCart()">Test Cart API</button>
+    <div id="cart-response"></div>
+  </div>
+
+  <!-- Test 4: Home Visit Booking -->
+  <div class="test-section">
+    <h2>4. Test Home Visit Booking</h2>
+    <label>Name:</label>
+    <input type="text" id="visit-name" value="Jane Smith" />
+    
+    <label>Email:</label>
+    <input type="email" id="visit-email" value="jane@example.com" />
+    
+    <label>Phone:</label>
+    <input type="text" id="visit-phone" value="9876543210" />
+    
+    <label>Address:</label>
+    <textarea id="visit-address" rows="2">123 Main Street, Bangalore</textarea>
+    
+    <label>Pincode:</label>
+    <input type="text" id="visit-pincode" value="560001" />
+    
+    <button onclick="testHomeVisit()">Test Home Visit API</button>
+    <div id="visit-response"></div>
+  </div>
+
+  <script>
+    async function testCallback() {
+      const responseDiv = document.getElementById('callback-response');
+      responseDiv.innerHTML = '⏳ Testing...';
+      
+      try {
+        const response = await fetch('/api/support/callback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: document.getElementById('callback-name').value,
+            phone: document.getElementById('callback-phone').value,
+            message: document.getElementById('callback-message').value,
+          }),
+        });
+        
+        const data = await response.json();
+        responseDiv.className = 'response ' + (data.success ? 'success' : 'error');
+        responseDiv.innerHTML = JSON.stringify(data, null, 2);
+      } catch (error) {
+        responseDiv.className = 'response error';
+        responseDiv.innerHTML = 'Error: ' + error.message;
+      }
+    }
+
+    async function testConsultation() {
+      const responseDiv = document.getElementById('consult-response');
+      responseDiv.innerHTML = '⏳ Testing...';
+      
+      try {
+        const response = await fetch('/api/booking/consultation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: document.getElementById('consult-name').value,
+            email: document.getElementById('consult-email').value,
+            phone: document.getElementById('consult-phone').value,
+            message: document.getElementById('consult-message').value,
+          }),
+        });
+        
+        const data = await response.json();
+        responseDiv.className = 'response ' + (data.success ? 'success' : 'error');
+        responseDiv.innerHTML = JSON.stringify(data, null, 2);
+      } catch (error) {
+        responseDiv.className = 'response error';
+        responseDiv.innerHTML = 'Error: ' + error.message;
+      }
+    }
+
+    async function testCart() {
+      const responseDiv = document.getElementById('cart-response');
+      responseDiv.innerHTML = '⏳ Testing...';
+      
+      try {
+        const response = await fetch('/api/cart/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: 'TEST001',
+            name: 'Complete Blood Count',
+            price: 500,
+            type: 'test',
+            sessionId: 'session_' + Date.now(),
+          }),
+        });
+        
+        const data = await response.json();
+        responseDiv.className = 'response ' + (data.success ? 'success' : 'error');
+        responseDiv.innerHTML = JSON.stringify(data, null, 2);
+      } catch (error) {
+        responseDiv.className = 'response error';
+        responseDiv.innerHTML = 'Error: ' + error.message;
+      }
+    }
+
+    async function testHomeVisit() {
+      const responseDiv = document.getElementById('visit-response');
+      responseDiv.innerHTML = '⏳ Testing...';
+      
+      try {
+        const response = await fetch('/api/booking/home-visit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: document.getElementById('visit-name').value,
+            email: document.getElementById('visit-email').value,
+            phone: document.getElementById('visit-phone').value,
+            address: document.getElementById('visit-address').value,
+            pincode: document.getElementById('visit-pincode').value,
+            date: '2024-01-20',
+            time: '10:00 AM',
+            tests: [],
+            totalAmount: 500,
+          }),
+        });
+        
+        const data = await response.json();
+        responseDiv.className = 'response ' + (data.success ? 'success' : 'error');
+        responseDiv.innerHTML = JSON.stringify(data, null, 2);
+      } catch (error) {
+        responseDiv.className = 'response error';
+        responseDiv.innerHTML = 'Error: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
